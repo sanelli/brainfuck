@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "brainfuck", "brainfuck\brainfuck.csproj", "{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9A8257C6-BBF9-416D-B243-40C0C4C46E86}"
+	ProjectSection(SolutionItems) = preProject
+		..\samples\hello-world.bf = ..\samples\hello-world.bf
+		..\samples\README.md = ..\samples\README.md
+		..\samples\hello-world-short.bf = ..\samples\hello-world-short.bf
+		..\samples\echo-single-char.bf = ..\samples\echo-single-char.bf
+		..\samples\tic-tac-toe.bf = ..\samples\tic-tac-toe.bf
+		..\samples\factorial.bf = ..\samples\factorial.bf
+		..\samples\fibonacci.bf = ..\samples\fibonacci.bf
+		..\samples\rot13.bf = ..\samples\rot13.bf
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{649387C2-0D51-4709-87D1-77F50F9810E0}"
+	ProjectSection(SolutionItems) = preProject
+		stylecop.json = stylecop.json
+		.gitignore = .gitignore
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
