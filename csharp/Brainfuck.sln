@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "brainfuck", "brainfuck\brainfuck.csproj", "{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brainfuck", "Brainfuck\Brainfuck.csproj", "{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9A8257C6-BBF9-416D-B243-40C0C4C46E86}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{9A82
 		..\samples\factorial.bf = ..\samples\factorial.bf
 		..\samples\fibonacci.bf = ..\samples\fibonacci.bf
 		..\samples\rot13.bf = ..\samples\rot13.bf
+		..\samples\wc.bf = ..\samples\wc.bf
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution Folder", "{649387C2-0D51-4709-87D1-77F50F9810E0}"
@@ -23,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Folder", "Solution
 		.gitignore = .gitignore
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brainfuck.Tests", "Brainfuck.Tests\Brainfuck.Tests.csproj", "{51097BD4-2E51-41B0-A411-76170A79921A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,5 +40,9 @@ Global
 		{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBDF4273-D9CE-45D1-B416-A7BAC02B6618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51097BD4-2E51-41B0-A411-76170A79921A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51097BD4-2E51-41B0-A411-76170A79921A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51097BD4-2E51-41B0-A411-76170A79921A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51097BD4-2E51-41B0-A411-76170A79921A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
