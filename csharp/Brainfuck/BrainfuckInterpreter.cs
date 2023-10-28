@@ -38,7 +38,7 @@ public sealed class BrainfuckInterpreter
     {
         var pointer = this.tapeSize;
         var tape = new byte[2 * this.tapeSize];
-        for (var programCounter = 0; programCounter < this.program.Length;)
+        for (var programCounter = 0; programCounter < this.program.Length; ++programCounter)
         {
             switch (this.program[programCounter])
             {
@@ -75,8 +75,6 @@ public sealed class BrainfuckInterpreter
 
                     break;
             }
-
-            ++programCounter;
         }
     }
 
