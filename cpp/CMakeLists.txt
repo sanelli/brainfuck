@@ -12,7 +12,11 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+add_subdirectory(libs)
+# find_package(Catch2 3 REQUIRED)
+
 add_executable(brainfuck brainfuck.cpp)
 add_executable(brainfuck-tests brainfuck-tests.cpp)
+target_link_libraries(brainfuck-tests PRIVATE Catch2::Catch2WithMain)
 
 add_test(NAME brainfuck-tests COMMAND brainfuck-tests)
