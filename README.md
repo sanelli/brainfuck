@@ -12,9 +12,19 @@ Collection of brainfuck interpreters written in various languages.
 - CMake > 3.27
 - C++ 20 compiler (tested with clang-apple-darwin-14)
 
+### [Go](https://github.com/sanelli/brainfuck/tree/main/go)
+- Go > 1.21.3
+
 ## Compile and test
 ```powershell
-./Scripts/BuildAll.ps1
-./Scripts/RunHelloWorld.ps1
-./Scripts/TestAll.ps1
+./Scripts/Build.ps1
+./Scripts/RunHello.ps1
+./Scripts/Test.ps1
+```
+
+It is possible invoke each of the command to work only with a subset of languages:
+```powershell
+./Scripts/Build.ps1 -Languages:$("csharp", "python", "cpp")
+./Scripts/RunHello.ps1 -Languages:$("csharp", "cpp")
+./Scripts/Test.ps1 -Languages:$("cpp")
 ```
