@@ -13,6 +13,9 @@ using program_counter_t = std::string::size_type;
 template<typename TCin, typename TCout, int TAPE_SIZE = 30000>
 class brainfuck_interpreter 
 {
+    static_assert(sizeof(byte_t) == 1);
+    static_assert(std::is_unsigned_v<byte_t>);
+
     std::string program;
     TCin cin;
     TCout cout;
