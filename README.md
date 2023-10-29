@@ -22,7 +22,7 @@ Collection of brainfuck interpreters written in various languages.
 ./Scripts/Test.ps1
 ```
 
-It is possible invoke each of the command to work only with a subset of languages:
+Each script accept a `-Language` parameter with a list of languages:
 ```powershell
 ./Scripts/Build.ps1 -Languages:$("csharp", "python", "cpp")
 ./Scripts/RunHello.ps1 -Languages:$("csharp", "cpp")
