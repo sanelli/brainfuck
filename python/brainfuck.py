@@ -12,7 +12,7 @@ def cin() -> int:
     print(v, end = '')
     return ord(v)
 
-def main(argv):
+def main(argv:list[str]) -> int:
     if(len(argv) < 1):
         return 1
     
@@ -23,8 +23,10 @@ def main(argv):
     try:
         interpreter = BrainfuckInterpreter(program, DefaultTapeSize, cin, cout)
         interpreter.run()
+        return 0
     except Exception as e:
         print(e)
+        return 1
 
 if __name__ == "__main__":
     returnCode = main(sys.argv[1::])
