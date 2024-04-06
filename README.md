@@ -34,3 +34,7 @@ Each script accepts a `-Language` parameter with a list of languages:
 ./Scripts/RunHello.ps1 -Languages:$("csharp", "cpp")
 ./Scripts/Test.ps1 -Languages:$("cpp")
 ```
+
+## Screenshots
+
+<img width="682" alt="image" src="https://github.com/sanelli/brainfuck/assets/2866041/636f62c0-0b56-426a-b4ed-f8edb18dcb96">
