@@ -1,0 +1,12 @@
+*.o
+*.s
+*.ppu
+*.exe
+
+Brainfuck
+Brainfuck.*
+!Brainfuck.pas
+
+BrainfuckTest
+BrainfuckTest.*
+!BrainfuckTest.pas
