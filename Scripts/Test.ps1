@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal"))
 
 $Success = $true
 
@@ -30,6 +30,14 @@ if ("go" -in $Languages) {
     Write-Host -ForegroundColor:"Yellow" "`n=== Go ==="
     Push-Location ./go
     go test ./interpreter/
+    $Success = $Success -and $?
+    Pop-Location
+}
+
+if ("cpp" -in $Languages) {
+    Write-Host -ForegroundColor:"Yellow" "`n=== Pascal ==="
+    Push-Location ./pascal
+    ./BrainfuckTest
     $Success = $Success -and $?
     Pop-Location
 }

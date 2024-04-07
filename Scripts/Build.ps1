@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal"))
 
 $Success = $true
 
@@ -34,6 +34,17 @@ if ("go" -in $Languages) {
     Push-Location ./go
     go build
     Pop-Location
+}
+
+if ("pascal" -in $Languages) {
+    Write-Host -ForegroundColor:"Yellow" "=== Pascal ==="
+    Push-Location ./pascal
+    fpc Brainfuck.pas
+    $Success = $Success -and $?
+    fpc BrainfuckTest.pas
+    $Success = $Success -and $?
+    Pop-Location
+    Write-Host ""
 }
 
 if ($Success) {

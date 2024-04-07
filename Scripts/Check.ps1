@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal"))
 
 function Invoke-Checks() {
     $Success = $true
@@ -48,6 +48,18 @@ function Invoke-Checks() {
         Write-Succes $LocalSuccess "go"
         if (-not $LocalSuccess) {
             Write-Host -ForegroundColor:"Red" "Visit https://go.dev/doc/install for installation instructions"
+        }
+    }
+
+    if ("pascal" -in $Languages) {
+        Write-Host -ForegroundColor:"Yellow" "=== Pascal ==="
+        $Exists = Confirm-CommandExists "fpc"
+        $CorrectVersion = Confirm-PascalVersion 3 2
+        $LocalSuccess = $Exists -and $CorrectVersion
+        $Success = $Success -and $LocalSuccess
+        Write-Succes $LocalSuccess "Pascal"
+        if (-not $LocalSuccess) {
+            Write-Host -ForegroundColor:"Red" "Visit https://www.freepascal.org/ for installation instructions"
         }
     }
 
@@ -140,6 +152,21 @@ function Confirm-GoVersion([int]$expectedMajorVersion, [int]$expectedMinorVersio
 
     if (-not $Success) {
         Write-Host "Require cmake version >= $expectedMajorVersion.$expectedMinorVersion but version $version found." -ForegroundColor:Red
+    }
+    return $Success;
+}
+
+function Confirm-PascalVersion([int]$expectedMajorVersion, [int]$expectedMinorVersion)
+{
+    $pascalVersion = $(fpc -h | Select-String -Pattern "Free Pascal Compiler Version").Line.Split()[4]
+    $versionMajorMinor = $pascalVersion -split "\."
+    $versionMajor = [System.Int32]::Parse($versionMajorMinor[0].Trim())
+    $versionMinor = [System.Int32]::Parse($versionMajorMinor[1].Trim())
+
+    $Success = ($versionMajor -gt $expectedMajorVersion) -or ($versionMajor -eq $expectedMajorVersion) -and ($versionMinor -ge $expectedMinorVersion)
+
+    if (-not $Success) {
+        Write-Host "Require fpc version >= $expectedMajorVersion.$expectedMinorVersion but version $version found." -ForegroundColor:Red
     }
     return $Success;
 }
