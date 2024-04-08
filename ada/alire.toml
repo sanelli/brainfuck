@@ -1,0 +1,12 @@
+name = "brainfuck"
+description = "Brainfuck interpreter writter in Ada"
+version = "0.1.0-dev"
+
+authors = ["Stefano Anelli"]
+maintainers = ["Stefano Anelli <stefano.anelli (at) gmail.com>"]
+maintainers-logins = ["sanelli"]
+licenses = "MIT"
+website = "https://github.com/sanelli/brainfuck"
+tags = ["brainfuck"]
+
+executables = ["brainfuck"]
