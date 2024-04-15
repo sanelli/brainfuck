@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada"))
 
 $Success = $true
 
@@ -43,6 +43,14 @@ if ("pascal" -in $Languages) {
     $Success = $Success -and $?
     fpc BrainfuckTest.pas
     $Success = $Success -and $?
+    Pop-Location
+    Write-Host ""
+}
+
+if ("ada" -in $Languages) {
+    Write-Host -ForegroundColor:"Yellow" "=== Ada ==="
+    Push-Location ./ada
+    alr build
     Pop-Location
     Write-Host ""
 }

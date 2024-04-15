@@ -3,7 +3,7 @@ description = "Brainfuck interpreter writter in Ada"
 version = "0.1.0-dev"
 
 authors = ["Stefano Anelli"]
-maintainers = ["Stefano Anelli <stefano.anelli (at) gmail.com>"]
+maintainers = ["Stefano Anelli <redacted@redacted.com>"]
 maintainers-logins = ["sanelli"]
 licenses = "MIT"
 website = "https://github.com/sanelli/brainfuck"
