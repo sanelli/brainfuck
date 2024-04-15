@@ -5,12 +5,12 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 package BrainfuckInterpreter is
    function JumpTableHashFunction (key : Natural) return Hash_Type;
 
-   package THashTable is new Ada.Containers.Indefinite_Hashed_Maps
+   package TJumpTable is new Ada.Containers.Indefinite_Hashed_Maps
        (Key_Type => Natural, Element_Type => Natural,
        Hash     => JumpTableHashFunction, Equivalent_Keys => "=");
 
    type TBrainfuckInterpreter is record
        Program   : Unbounded_String;
-       JumpTable : THashTable.Map;
+       JumpTable : TJumpTable.Map;
    end record;
 end BrainfuckInterpreter;
