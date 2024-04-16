@@ -66,6 +66,7 @@ package body BrainfuckInterpreter is
    begin
       interpreter.Cin := Cin;
       interpreter.Cout := Cout;
+      interpreter.Program := program;
       interpreter.BuildJumpTable (program);
    end Initialize;
 
