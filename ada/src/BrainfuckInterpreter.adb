@@ -28,12 +28,10 @@ package body BrainfuckInterpreter is
    procedure BuildJumpTable (
       interpreter : in out TBrainfuckInterpreter;
       program : Unbounded_String) is
-      Chr : Character;
       Stack : JumpTableStack.Vector;
    begin
       for ProgramCounter in 1 .. Length (program) loop
-         Chr := Element (program, ProgramCounter);
-         case Chr is
+         case Element (program, ProgramCounter) is
             when '[' =>
                Stack.Append (ProgramCounter);
             when ']' =>
