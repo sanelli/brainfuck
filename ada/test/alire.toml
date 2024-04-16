@@ -1,0 +1,15 @@
+name = "brianfucktests"
+description = "Tests for brainfuck Ada implementation"
+version = "0.1.0-dev"
+
+authors = ["Stefano Anelli"]
+maintainers = ["Stefano Anelli <redacted@redacted.com>"]
+maintainers-logins = ["sanelli"]
+licenses = "MIT"
+website = "https://github.com/sanelli/brainfuck"
+tags = ["ada", "brainfuck", "tests"]
+
+executables = ["brianfucktests"]
+
+[[depends-on]]
+aunit = "^24.0.0"

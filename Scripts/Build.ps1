@@ -51,6 +51,9 @@ if ("ada" -in $Languages) {
     Write-Host -ForegroundColor:"Yellow" "=== Ada ==="
     Push-Location ./ada
     alr build
+    Push-Location ./test
+    alr build
+    Pop-Location
     Pop-Location
     Write-Host ""
 }
