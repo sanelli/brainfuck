@@ -24,6 +24,9 @@ Prerequisites can be validated by running the `Check.ps1` script, possibly with 
 ### [Pascal](https://github.com/sanelli/brainfuck/tree/main/pascal)
 - Free pascal 3.2
 
+### [Ada](https://github.com/sanelli/brainfuck/tree/main/ada)
+- (Alire)[https://alire.ada.dev] 2.0
+
 ## Compile and test
 ```powershell
 ./Scripts/Build.ps1
