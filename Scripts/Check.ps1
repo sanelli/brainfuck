@@ -69,7 +69,7 @@ function Invoke-Checks() {
         $CorrectVersion = Confirm-AdaVersion 2 0
         $LocalSuccess = $Exists -and $CorrectVersion
         $Success = $Success -and $LocalSuccess
-        Write-Succes $LocalSuccess "ada"
+        Write-Succes $LocalSuccess "Ada"
         if (-not $LocalSuccess) {
             Write-Host -ForegroundColor:"Red" "Visit https://alire.ada.dev for installation instructions"
         }
