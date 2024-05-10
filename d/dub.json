@@ -1,0 +1,9 @@
+{
+	"authors": [
+		"Stefano Anelli"
+	],
+	"copyright": "Copyright © 2024, Stefano Anelli",
+	"description": "D brainfuck interpreter",
+	"license": "MIT",
+	"name": "brainfuck"
+}
