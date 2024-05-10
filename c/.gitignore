@@ -1,0 +1,14 @@
+build/
+CMakeFiles/
+*.cmake
+CMakeCache.txt
+Makefile
+brainfuck
+brainfuck.exe
+brainfuck-tests
+brainfuck-tests.exe
+.vscode
+
+libs/CMakeFiles
+libs/cmake_install.cmake
+libs/Makefile

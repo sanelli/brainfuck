@@ -16,7 +16,7 @@ Prerequisites can be validated by running the `Check.ps1` script, possibly with 
 
 ### [C++](https://github.com/sanelli/brainfuck/tree/main/cpp)
 - [CMake](https://cmake.org) 3.27
-- C++ 20 compiler (the script does not validate this as too many variations exists)
+- C++20 compiler (the `Check.ps1` does not validate this)
 
 ### [Go](https://github.com/sanelli/brainfuck/tree/main/go)
 - [Go](https://go.dev) 1.21.3
@@ -26,6 +26,14 @@ Prerequisites can be validated by running the `Check.ps1` script, possibly with 
 
 ### [Ada](https://github.com/sanelli/brainfuck/tree/main/ada)
 - [Alire](https://alire.ada.dev) 2.0
+
+### [C](https://github.com/sanelli/brainfuck/tree/main/c)
+- [CMake](https://cmake.org) 3.27
+- C17 compiler (the `Check.ps1` does not validate this)
+
+### [D](https://github.com/sanelli/brainfuck/tree/main/d)
+- [Dub](https://dub.pm) 1.37.0
+- [dmd](https://dlang.org) 2.108.1
 
 ## Compile and test
 ```powershell

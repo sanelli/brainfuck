@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d"))
 
 function Invoke-Checks() {
     $Success = $true
@@ -72,6 +72,37 @@ function Invoke-Checks() {
         Write-Succes $LocalSuccess "Ada"
         if (-not $LocalSuccess) {
             Write-Host -ForegroundColor:"Red" "Visit https://alire.ada.dev for installation instructions"
+        }
+    }
+
+    if ("c" -in $Languages) {
+        Write-Host -ForegroundColor:"Yellow" "=== C ==="
+        $Exists = Confirm-CommandExists "cmake"
+        $CorrectVersion = Confirm-CMakeVersion 3 27
+        $LocalSuccess = $Exists -and $CorrectVersion
+        $Success = $Success -and $LocalSuccess
+        Write-Succes $LocalSuccess "C"
+        if (-not $LocalSuccess) {
+            Write-Host -ForegroundColor:"Red" "Visit https://cmake.org/download/ for installation instructions"
+        }
+    }
+
+    if ("d" -in $Languages) {
+        Write-Host -ForegroundColor:"Yellow" "=== D ==="
+        $DubExists = Confirm-CommandExists "dub"
+        $DubCorrectVersion = Confirm-DubVersion 1 37
+        $DubLocalSuccess = $DubExists -and $DubCorrectVersion
+        $Success = $Success -and $DubLocalSuccess
+
+        $DmdExists = Confirm-CommandExists "dub"
+        $DmdCorrectVersion = Confirm-DmdVersion 2 108
+        $DmdLocalSuccess = $DmdExists -and $DmdCorrectVersion
+        $Success = $Success -and $DmdLocalSuccess
+
+        $LocalSuccess = $DubLocalSuccess -and $DmdLocalSuccess
+        Write-Succes $LocalSuccess "D"
+        if (-not $LocalSuccess) {
+            Write-Host -ForegroundColor:"Red" "Visit https://dlang.org and https://dub.pm for installation instructions"
         }
     }
 
@@ -195,6 +226,36 @@ function Confirm-AdaVersion([int]$expectedMajorVersion, [int]$expectedMinorVersi
 
     if (-not $Success) {
         Write-Host "Require cmake version >= $expectedMajorVersion.$expectedMinorVersion but version $version found." -ForegroundColor:Red
+    }
+    return $Success;
+}
+
+function Confirm-DubVersion([int]$expectedMajorVersion, [int]$expectedMinorVersion) {
+
+    $version = $($($(dub --version) -split ",")[0] -split " ")[2]
+    $versionMajorMinor = $version -split "\."
+    $versionMajor = [System.Int32]::Parse($versionMajorMinor[0].Trim())
+    $versionMinor = [System.Int32]::Parse($versionMajorMinor[1].Trim())
+
+    $Success = ($versionMajor -gt $expectedMajorVersion) -or ($versionMajor -eq $expectedMajorVersion) -and ($versionMinor -ge $expectedMinorVersion)
+
+    if (-not $Success) {
+        Write-Host "Require dub version >= $expectedMajorVersion.$expectedMinorVersion but version $version found." -ForegroundColor:Red
+    }
+    return $Success;
+}
+
+function Confirm-DmdVersion([int]$expectedMajorVersion, [int]$expectedMinorVersion) {
+
+    $version =$($($(dmd --version) -split " ")[3] -split "v")[1]
+    $versionMajorMinor = $version -split "\."
+    $versionMajor = [System.Int32]::Parse($versionMajorMinor[0].Trim())
+    $versionMinor = [System.Int32]::Parse($versionMajorMinor[1].Trim())
+
+    $Success = ($versionMajor -gt $expectedMajorVersion) -or ($versionMajor -eq $expectedMajorVersion) -and ($versionMinor -ge $expectedMinorVersion)
+
+    if (-not $Success) {
+        Write-Host "Require dmd version >= $expectedMajorVersion.$expectedMinorVersion but version $version found." -ForegroundColor:Red
     }
     return $Success;
 }
