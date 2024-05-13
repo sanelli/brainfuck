@@ -23,7 +23,6 @@ fn main() -> Result<(), ErrorCode> {
         .expect("Should have been able to read the file");
     let interpreter = BrainfuckInterpreter::new(String::from(program));
     interpreter.run();
-    println!("Hello, world!");
 
     return Ok(());
 }

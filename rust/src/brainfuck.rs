@@ -17,7 +17,7 @@ pub mod interpreter {
             return 0;
         }
         fn default_cout(value: i8) -> () {
-            println!("{}", value as u8 as char)
+            print!("{}", value as u8 as char)
         }
 
         fn build_jump_table(program: &String) -> Vec<BrainfuckJumpTableEntry> {
@@ -35,8 +35,6 @@ pub mod interpreter {
                             program_counter: program_counter as u32,
                             other_program_counter: other_program_counter,
                         });
-
-                        println!("[dbg] ADDED {} <-> {}", program_counter, other_program_counter);
                     }
                     _ => {}
                 }
@@ -80,15 +78,12 @@ pub mod interpreter {
             #[allow(unused_mut)]
             let mut tape: [i8; 60000] = [0; 60000];
             let mut program_counter: u32 = 0;
-            let mut characters = self.program.chars();
             let number_of_characters = self.program.chars().count() as u32;
 
             while program_counter < number_of_characters {
-                let character = characters
+                let character = self.program.chars()
                     .nth(program_counter as usize)
                     .expect("Indexed invalid part of the program");
-
-                println!("[dbg] Character is {} @ {}", character, program_counter);
 
                 match character {
                     '>' => {
