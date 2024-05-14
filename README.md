@@ -35,6 +35,10 @@ Prerequisites can be validated by running the `Check.ps1` script, possibly with 
 - [Dub](https://dub.pm) 1.37.0
 - [dmd](https://dlang.org) 2.108.1
 
+### [Rust](https://github.com/sanelli/brainfuck/tree/main/rust)
+- [cargo](https://www.rust-lang.org) 1.78.0
+- [rustc](https://www.rust-lang.org) 1.78.0
+
 ## Compile and test
 ```powershell
 ./Scripts/Build.ps1
