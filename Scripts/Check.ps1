@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d", "rust"))
 
 function Invoke-Checks() {
     $Success = $true
@@ -103,6 +103,18 @@ function Invoke-Checks() {
         Write-Succes $LocalSuccess "D"
         if (-not $LocalSuccess) {
             Write-Host -ForegroundColor:"Red" "Visit https://dlang.org and https://dub.pm for installation instructions"
+        }
+    }
+
+    if ("rust" -in $Languages) {
+        Write-Host -ForegroundColor:"Yellow" "=== Rist ==="
+        $Exists = Confirm-CommandExists "cargo"
+        $CorrectVersion = Confirm-CargoVersion 1 78
+        $LocalSuccess = $Exists -and $CorrectVersion
+        $Success = $Success -and $LocalSuccess
+        Write-Succes $LocalSuccess "Rust"
+        if (-not $LocalSuccess) {
+            Write-Host -ForegroundColor:"Red" "Visit https://rustup.rs for installation instructions"
         }
     }
 
@@ -248,6 +260,21 @@ function Confirm-DubVersion([int]$expectedMajorVersion, [int]$expectedMinorVersi
 function Confirm-DmdVersion([int]$expectedMajorVersion, [int]$expectedMinorVersion) {
 
     $version =$($($(dmd --version) -split " ")[3] -split "v")[1]
+    $versionMajorMinor = $version -split "\."
+    $versionMajor = [System.Int32]::Parse($versionMajorMinor[0].Trim())
+    $versionMinor = [System.Int32]::Parse($versionMajorMinor[1].Trim())
+
+    $Success = ($versionMajor -gt $expectedMajorVersion) -or ($versionMajor -eq $expectedMajorVersion) -and ($versionMinor -ge $expectedMinorVersion)
+
+    if (-not $Success) {
+        Write-Host "Require dmd version >= $expectedMajorVersion.$expectedMinorVersion but version $version found." -ForegroundColor:Red
+    }
+    return $Success;
+}
+
+function Confirm-CargoVersion([int]$expectedMajorVersion, [int]$expectedMinorVersion) {
+
+    $version = $($(cargo --version) -split " ")[1]
     $versionMajorMinor = $version -split "\."
     $versionMajor = [System.Int32]::Parse($versionMajorMinor[0].Trim())
     $versionMinor = [System.Int32]::Parse($versionMajorMinor[1].Trim())

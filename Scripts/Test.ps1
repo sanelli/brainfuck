@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d", "rust"))
 
 $Success = $true
 
@@ -62,6 +62,14 @@ if ("d" -in $Languages) {
     Write-Host -ForegroundColor:"Yellow" "`n=== D ==="
     Push-Location ./d
     dub test
+    $Success = $Success -and $?
+    Pop-Location
+}
+
+if ("rust" -in $Languages) {
+    Write-Host -ForegroundColor:"Yellow" "`n=== Rust ==="
+    Push-Location ./rust
+    cargo test
     $Success = $Success -and $?
     Pop-Location
 }
