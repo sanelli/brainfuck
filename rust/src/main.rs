@@ -1,9 +1,8 @@
+pub mod brainfuck;
+
 use std::fs;
 use std::env;
-
-use crate::brainfuck::interpreter::BrainfuckInterpreter;
-
-pub mod brainfuck;
+use brainfuck::interpreter::BrainfuckInterpreter;
 
 #[derive(Debug)]
 #[allow(dead_code)]
