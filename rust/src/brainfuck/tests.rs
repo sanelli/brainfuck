@@ -1,6 +1,8 @@
+#[allow(unused_imports)]
 use crate::brainfuck::interpreter::BrainfuckInterpreter;
 use crate::brainfuck::interpreter::BrainfuckInterpreterIO;
 
+#[allow(dead_code)]
 struct TestIO {
     output: String,
     input: String,
@@ -23,6 +25,7 @@ impl BrainfuckInterpreterIO for TestIO {
 }
 
 impl TestIO {
+    #[allow(dead_code)]
     fn new(input: String) -> TestIO {
         return TestIO {
             output: String::from(""),
@@ -83,7 +86,7 @@ fn test_rot13() {
 }
 
 #[test]
-fn test_wv() {
+fn test_wc() {
     // https://brainfuck.org/wc.b
     let mut test_io = TestIO::new(String::from("Hello world\nthis is me\0"));
     let program = r#"
