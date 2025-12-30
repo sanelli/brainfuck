@@ -2,8 +2,13 @@
 
 ## Compile and Run
 ```bash
-erl -compile ./main
-erl -noshell -run main mai
+erl -compile ./*.erl
+erl -noshell -run main main
+```
+
+## Check the `erl` version
+```bash
+erl -version
 ```
 
 ## Notes
