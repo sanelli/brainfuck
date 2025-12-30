@@ -9,7 +9,7 @@ execute(Program) ->
 
 execute(Position, Memory, JumpTable, Program, ProgramCounter) ->
     CurrentCommand = lists:nth(ProgramCounter, Program),
-    io:format("EXECUTE code: '~c', pc: ~w, ptr: ~w //  ~n", [CurrentCommand, ProgramCounter, Position]),
+    % io:format("EXECUTE code: '~c', pc: ~w, ptr: ~w, mem(~w): '~w'~n", [CurrentCommand, ProgramCounter, Position, length(Memory), Memory]),
     case CurrentCommand of
         $> -> 
             NewProgramCounter = ProgramCounter + 1,
@@ -23,38 +23,37 @@ execute(Position, Memory, JumpTable, Program, ProgramCounter) ->
             NewProgramCounter = ProgramCounter + 1,
             NewPosition = Position,
             NewValue = lists:nth(Position, Memory) + 1,
-            NewMemory = replace_element(Memory, Position, NewValue),
-            io:format("SET MEMORY[~w] = ~w~n", [Position, NewValue]);
+            NewMemory = replace_element(Memory, Position, NewValue);
         $- -> 
             NewProgramCounter = ProgramCounter + 1,
             NewPosition = Position,
             NewValue = lists:nth(Position, Memory) - 1,
-            NewMemory = replace_element(Memory, Position, NewValue),
-            io:format("SET MEMORY[~w] = ~w~n", [Position, NewValue]);
+            NewMemory = replace_element(Memory, Position, NewValue);
         $[ ->
             NewMemory = Memory,
             NewPosition = Position,
             CurrentValue = lists:nth(Position, Memory),
-            io:format("TEST JUMP cv: '~w'~n", [CurrentValue]),
             if 
-                CurrentValue == 0 -> NewProgramCounter = locate_jump_pair(JumpTable, ProgramCounter);
-                CurrentValue /= 0 -> NewProgramCounter = ProgramCounter + 1
+                CurrentValue == 0 -> 
+                    NewProgramCounter = locate_jump_pair(JumpTable, ProgramCounter);
+                CurrentValue /= 0 -> 
+                    NewProgramCounter = ProgramCounter + 1
             end;
         $] ->
             NewMemory = Memory,
             NewPosition = Position,
             CurrentValue = lists:nth(Position, Memory),
-            io:format("TEST JUMP cv: '~w'~n", [CurrentValue]),
             if 
-                CurrentValue /= 0 -> NewProgramCounter = locate_jump_pair(JumpTable, ProgramCounter);
-                CurrentValue == 0 -> NewProgramCounter = ProgramCounter + 1
+                CurrentValue /= 0 -> 
+                    NewProgramCounter = locate_jump_pair(JumpTable, ProgramCounter);
+                CurrentValue == 0 -> 
+                    NewProgramCounter = ProgramCounter + 1
             end;
         $. -> 
             NewProgramCounter = ProgramCounter + 1,
             NewMemory = Memory,
             NewPosition = Position,
             CurrentValue = lists:nth(Position, Memory),
-            io:format("PRINT '~c'~n", [CurrentValue]),
             io:format("~c", [CurrentValue]);
         _ ->
             NewProgramCounter = ProgramCounter + 1,
@@ -79,7 +78,7 @@ elements_up_to(_, Counter, Right) when Counter > Right
     -> [].
 
 replace_element(List, Index, Element)
-    -> elements_up_to(List, 1, Index - 1) ++ [ Element ] ++ lists:nthtail(Index + 1, List).
+    -> elements_up_to(List, 1, Index - 1) ++ [ Element ] ++ lists:nthtail(Index, List).
 
 create_jump_table([Head | RestOfProgram], ProgramPosition, Stack, JumpTable)
     -> case Head of
@@ -89,8 +88,6 @@ create_jump_table([Head | RestOfProgram], ProgramPosition, Stack, JumpTable)
         $] -> 
             Pair = lists:nth(length(Stack), Stack),
             NewStack = lists:droplast(Stack),
-            io:format("JT (~w m ~w) ~n", [Pair, ProgramPosition]),
-            io:format("JT (~w m ~w) ~n", [ProgramPosition, Pair]),
             TempJumpTable = JumpTable ++ [{Pair, ProgramPosition}],
             NewJumpTable = TempJumpTable ++ [{ProgramPosition, Pair}];
         _ -> 
@@ -104,10 +101,8 @@ create_jump_table([], _, _, JumpTable)
 locate_jump_pair([{Left, Right} | RestOfJumpTable], Position)
     -> if 
             Left == Position -> 
-                io:format("JUMP (~w -> ~w) ~n", [Position, Right]),
                 Right;
             Right == Position ->
-                io:format("JUMP (~w -> ~w) ~n", [Position, Left]),
                 Left;
             (Left /= Position) and (Right /= Position) -> locate_jump_pair(RestOfJumpTable, Position)
         end;
