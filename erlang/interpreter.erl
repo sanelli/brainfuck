@@ -1,13 +1,16 @@
 -module(interpreter).
--export([execute/1]).
+-export([execute/1, execute/3, default_stdout/1, default_stdin/0]).
 
 -import(lists, [nth/2, nthtail/2, droplast/1]).
 
 execute(Program) ->
-    JumpTable = create_jump_table(Program, 1, [], []),
-    execute(1, create_memory(30000), JumpTable, Program, 1).
+    execute(Program, fun() -> default_stdin() end, fun(Ch) -> default_stdout(Ch) end).
 
-execute(Position, Memory, JumpTable, Program, ProgramCounter) ->
+execute(Program, StdIn, StdOut) ->
+    JumpTable = create_jump_table(Program, 1, [], []),
+    execute(1, create_memory(30000), JumpTable, Program, 1, StdIn, StdOut).
+
+execute(Position, Memory, JumpTable, Program, ProgramCounter, StdIn, StdOut) ->
     CurrentCommand = lists:nth(ProgramCounter, Program),
     % io:format("EXECUTE code: '~c', pc: ~w, ptr: ~w, mem(~w): '~w'~n", [CurrentCommand, ProgramCounter, Position, length(Memory), Memory]),
     case CurrentCommand of
@@ -54,14 +57,19 @@ execute(Position, Memory, JumpTable, Program, ProgramCounter) ->
             NewMemory = Memory,
             NewPosition = Position,
             CurrentValue = lists:nth(Position, Memory),
-            io:format("~c", [CurrentValue]);
+            StdOut(CurrentValue);
+        $, -> 
+            NewProgramCounter = ProgramCounter + 1,
+            NewPosition = Position,
+            NewValue = StdIn(),
+            NewMemory = replace_element(Memory, Position, NewValue);
         _ ->
             NewProgramCounter = ProgramCounter + 1,
             NewPosition = Position,
             NewMemory = Memory
     end,
     if
-        NewProgramCounter =< length(Program) -> execute(NewPosition, NewMemory, JumpTable, Program, NewProgramCounter);
+        NewProgramCounter =< length(Program) -> execute(NewPosition, NewMemory, JumpTable, Program, NewProgramCounter, StdIn, StdOut);
         NewProgramCounter > length(Program) -> ok
     end.
 
@@ -79,6 +87,16 @@ elements_up_to(_, Counter, Right) when Counter > Right
 
 replace_element(List, Index, Element)
     -> elements_up_to(List, 1, Index - 1) ++ [ Element ] ++ lists:nthtail(Index, List).
+
+default_stdin() ->
+    %io:setopts([{binary, true}]),
+    Ch = io:get_chars("", 1),
+    %io:setopts([{binary, false}]),
+    [Head | _ ] = Ch,
+    Head.
+
+default_stdout(Ch) ->
+     io:format("~c", [Ch]).
 
 create_jump_table([Head | RestOfProgram], ProgramPosition, Stack, JumpTable)
     -> case Head of
