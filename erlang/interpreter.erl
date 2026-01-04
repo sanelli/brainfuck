@@ -1,10 +1,14 @@
 -module(interpreter).
--export([execute/1, execute/3, default_stdout/1, default_stdin/0]).
+-export([execute/1, execute/2, execute/3, default_stdout/1, default_stdin/0]).
 
 -import(lists, [nth/2, nthtail/2, droplast/1]).
 
 execute(Program) ->
     execute(Program, fun() -> default_stdin() end, fun(Ch) -> default_stdout(Ch) end).
+
+execute(Program, StdIn) ->
+    JumpTable = create_jump_table(Program, 1, [], []),
+    execute(1, create_memory(30000), JumpTable, Program, 1, StdIn, fun(Ch) -> default_stdout(Ch) end).
 
 execute(Program, StdIn, StdOut) ->
     JumpTable = create_jump_table(Program, 1, [], []),
