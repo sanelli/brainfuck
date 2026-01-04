@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d", "rust"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d", "rust", "erlang"))
 
 $Success = $true
 
@@ -80,6 +80,14 @@ if ("rust" -in $Languages) {
     Write-Host -ForegroundColor:"Yellow" "`n=== Rust ==="
     Push-Location ./rust
     cargo build
+    $Success = $Success -and $?
+    Pop-Location
+}
+
+if ("erlang" -in $Languages) {
+    Write-Host -ForegroundColor:"Yellow" "`n=== Erlang ==="
+    Push-Location ./erlang
+    erl -compile ./*.erl
     $Success = $Success -and $?
     Pop-Location
 }

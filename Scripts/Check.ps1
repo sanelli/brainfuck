@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d", "rust"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d", "rust", "erlang"))
 
 function Invoke-Checks() {
     $Success = $true
@@ -107,7 +107,7 @@ function Invoke-Checks() {
     }
 
     if ("rust" -in $Languages) {
-        Write-Host -ForegroundColor:"Yellow" "=== Rist ==="
+        Write-Host -ForegroundColor:"Yellow" "=== Rust ==="
         $Exists = Confirm-CommandExists "cargo"
         $CorrectVersion = Confirm-CargoVersion 1 78
         $LocalSuccess = $Exists -and $CorrectVersion
@@ -115,6 +115,18 @@ function Invoke-Checks() {
         Write-Succes $LocalSuccess "Rust"
         if (-not $LocalSuccess) {
             Write-Host -ForegroundColor:"Red" "Visit https://rustup.rs for installation instructions"
+        }
+    }
+
+    if ("erlang" -in $Languages) {
+        Write-Host -ForegroundColor:"Yellow" "=== Erlang ==="
+        $Exists = Confirm-CommandExists "erl"
+        $CorrectVersion = Confirm-ErlVersion 16 1
+        $LocalSuccess = $Exists -and $CorrectVersion
+        $Success = $Success -and $LocalSuccess
+        Write-Succes $LocalSuccess "Erlang"
+        if (-not $LocalSuccess) {
+            Write-Host -ForegroundColor:"Red" "Visit https://www.erlang.org for installation instructions"
         }
     }
 
@@ -158,7 +170,7 @@ function Confirm-DotnetVersion($expectedVersion) {
         }
     }
   
-    Write-Host "Require dotnet version $expectedVersion but version $version found." -ForegroundColor:Red
+    Write-Host "Require dotnet version $expectedVersion to be installed." -ForegroundColor:Red
     return $false;
 }
 
@@ -284,6 +296,22 @@ function Confirm-CargoVersion([int]$expectedMajorVersion, [int]$expectedMinorVer
     if (-not $Success) {
         Write-Host "Require dmd version >= $expectedMajorVersion.$expectedMinorVersion but version $version found." -ForegroundColor:Red
     }
+    return $Success;
+}
+
+function Confirm-ErlVersion([int]$expectedMajorVersion, [int]$expectedMinorVersion) {
+    $response = $($(erl -version 2>&1) -split " ")
+    $version = $response[$response.Length - 1]  
+    $versionMajorMinor = $version -split "\."
+    $versionMajor = [System.Int32]::Parse($versionMajorMinor[0].Trim())
+    $versionMinor = [System.Int32]::Parse($versionMajorMinor[1].Trim())
+
+    $Success = ($versionMajor -gt $expectedMajorVersion) -or ($versionMajor -eq $expectedMajorVersion) -and ($versionMinor -ge $expectedMinorVersion)
+
+    if (-not $Success) {
+        Write-Host "Require erl version >= $expectedMajorVersion.$expectedMinorVersion but version $version found." -ForegroundColor:Red
+    }
+
     return $Success;
 }
 

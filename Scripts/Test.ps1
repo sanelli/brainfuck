@@ -1,4 +1,4 @@
-param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d", "rust"))
+param([string[]]$Languages = $("csharp", "python", "cpp", "go", "pascal", "ada", "c", "d", "rust", "erlang"))
 
 $Success = $true
 
@@ -73,6 +73,15 @@ if ("rust" -in $Languages) {
     $Success = $Success -and $?
     Pop-Location
 }
+
+if ("erlang" -in $Languages) {
+    Write-Host -ForegroundColor:"Yellow" "`n=== Erlang ==="
+    Push-Location ./erlang
+    erl -compile ./*.erl && erl -noshell -run tests main 
+    $Success = $Success -and $?
+    Pop-Location
+}
+
 
 if ($Success) {
     Write-Host "`n`nTest successful!" -ForegroundColor:Green
