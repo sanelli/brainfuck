@@ -3,6 +3,8 @@ Collection of brainfuck interpreters written in various languages.
 
 ## Prerequisities
 Prerequisites can be validated by running the `Check.ps1` script, possibly with a list of languages to validate. If the parameter `-Languages` is not provided then all supported languages are cheked. In case of failures will provide a set of links to follow to help with the installation.
+
+Examples:
 ```powershell
 ./Scripts/Check.ps1
 ./Scripts/Check.ps1 -Languages:$("csharp", "python", "cpp")
@@ -38,6 +40,9 @@ Prerequisites can be validated by running the `Check.ps1` script, possibly with 
 ### [Rust](https://github.com/sanelli/brainfuck/tree/main/rust)
 - [cargo](https://www.rust-lang.org) 1.78.0
 - [rustc](https://www.rust-lang.org) 1.78.0
+
+### [Erlang](https://github.com/sanelli/brainfuck/tree/main/erlang)
+- [erl](https://www.erlang.org) 16.1.2
 
 ## Compile and test
 ```powershell
